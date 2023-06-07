@@ -11,20 +11,36 @@ namespace MyFirstMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+       
+        public HomeController()
         {
-            _logger = logger;
+            
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        public IActionResult Sum()
+        {
+            return View(0);
+        }
+
+
+        [HttpPost]
+        public IActionResult Sum(int FirstNumber,int SecondNumber)
+        {
+            int result = FirstNumber + SecondNumber;
+            ViewBag.FirstNumber = FirstNumber;  
+           ViewBag.SecondNumber = SecondNumber; 
+            return View(result);
+        }
+
+
 
         public IActionResult Privacy()
         {
+           
             return View();
         }
 
