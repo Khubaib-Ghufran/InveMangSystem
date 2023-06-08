@@ -35,6 +35,9 @@ namespace InveMangSystem.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
+                    b.Property<float>("price")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
                     b.ToTable("Units");

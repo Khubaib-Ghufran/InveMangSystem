@@ -23,5 +23,61 @@ namespace InveMangSystem.Controllers
         {
             _context = context;
         }
+
+        public IActionResult Create()
+        {
+            Unit unit = new Unit();
+           return View(unit);
+        }
+        [HttpPost]
+        public IActionResult Create(Unit unit)
+        {
+            try
+            {
+                _context.Units.Add(unit);
+                _context.SaveChanges();
+
+            }
+
+            catch
+            {
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int id)
+        {
+            Unit unit =GitUnit(id);
+            return View(unit);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Unit unit = GitUnit(id);
+            return View(unit);
+        }
+        [HttpPost]
+        public IActionResult Edit(Unit unit)
+        {
+            try
+            {
+                _context.Units.Attach(unit);
+                _context.Entry(unit).State=EntityState.Modified;
+                _context.SaveChanges();
+            }
+
+            catch
+            {
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        private Unit GitUnit(int id)
+        {
+            Unit unit = _context.Units.FirstOrDefault(u => u.Id == id);
+            return unit;
+        }
     }
 }
