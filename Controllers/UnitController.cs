@@ -74,6 +74,29 @@ namespace InveMangSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Delete(int id)
+        {
+            Unit unit = new Unit();
+            return View(unit);
+        }
+        [HttpPost]
+        public IActionResult Delete(Unit unit)
+        {
+            try
+            {
+                _context.Units.Attach(unit);
+                _context.Entry(unit).State = EntityState.Deleted;
+                _context.SaveChanges();
+
+            }
+
+            catch
+            {
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         private Unit GitUnit(int id)
         {
             Unit unit = _context.Units.FirstOrDefault(u => u.Id == id);
