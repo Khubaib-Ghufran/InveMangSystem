@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using InveMangSystem.Models;
 using InveMangSystem.Data;
+using InveMangSystem.Interfaces;
+using InveMangSystem.Repositories;
 
 namespace MyFirstMVC
 {
@@ -27,6 +29,7 @@ namespace MyFirstMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IUnit, UnitRepository>();
             services.AddDbContext<InventoryContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("dbconn")));
         }
 

@@ -5,6 +5,7 @@ using InveMangSystem.Models;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using InveMangSystem.Interfaces;
 
 namespace InveMangSystem.Controllers
 {
@@ -13,15 +14,17 @@ namespace InveMangSystem.Controllers
         
         public IActionResult Index()
         {
-            List<Unit> units = _context.Units.ToList();
+            List<Unit> units = _unitRepo.GetItems();//_context.Units.ToList();
 
             return View(units);
         }
-        private readonly InventoryContext _context;
-
-        public UnitController(InventoryContext context)
+        
+        private readonly IUnit _unitRepo;
+        public UnitController(IUnit unitrepo)
         {
-            _context = context;
+            
+            _unitRepo = unitrepo;
+
         }
 
         public IActionResult Create()
@@ -34,8 +37,7 @@ namespace InveMangSystem.Controllers
         {
             try
             {
-                _context.Units.Add(unit);
-                _context.SaveChanges();
+                unit = _unitRepo.Create(unit);
 
             }
 
@@ -48,13 +50,13 @@ namespace InveMangSystem.Controllers
 
         public IActionResult Details(int id)
         {
-            Unit unit =GitUnit(id);
+            Unit unit =_unitRepo.GetUnit(id);
             return View(unit);
         }
 
         public IActionResult Edit(int id)
         {
-            Unit unit = GitUnit(id);
+            Unit unit = _unitRepo.GetUnit(id);
             return View(unit);
         }
         [HttpPost]
@@ -62,9 +64,7 @@ namespace InveMangSystem.Controllers
         {
             try
             {
-                _context.Units.Attach(unit);
-                _context.Entry(unit).State=EntityState.Modified;
-                _context.SaveChanges();
+                unit = _unitRepo.Edit(unit);
             }
 
             catch
@@ -76,7 +76,7 @@ namespace InveMangSystem.Controllers
 
         public IActionResult Delete(int id)
         {
-            Unit unit = new Unit();
+            Unit unit = _unitRepo.GetUnit(id);
             return View(unit);
         }
         [HttpPost]
@@ -84,9 +84,7 @@ namespace InveMangSystem.Controllers
         {
             try
             {
-                _context.Units.Attach(unit);
-                _context.Entry(unit).State = EntityState.Deleted;
-                _context.SaveChanges();
+                unit = _unitRepo.Delete(unit);
 
             }
 
@@ -97,10 +95,6 @@ namespace InveMangSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private Unit GitUnit(int id)
-        {
-            Unit unit = _context.Units.FirstOrDefault(u => u.Id == id);
-            return unit;
-        }
+        
     }
 }

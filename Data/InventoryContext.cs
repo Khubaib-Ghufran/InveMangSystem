@@ -1,6 +1,6 @@
 ﻿using InveMangSystem.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Collections.Generic;
 namespace InveMangSystem.Data
 {
     public class InventoryContext:DbContext
