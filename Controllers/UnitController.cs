@@ -12,11 +12,12 @@ namespace InveMangSystem.Controllers
     public class UnitController : Controller
     {
         
-        public IActionResult Index(string SearchText="")
+        public IActionResult Index(string SearchText="",int pageSize=5,int pg=1)
         {
             ViewBag.SearchText = SearchText;
             List<Unit> units = _unitRepo.GetItems(SearchText);//_context.Units.ToList();
-
+            var pager = new PagerModel(units.Count, pg, pageSize);
+            this.ViewBag.pager = pager; 
             return View(units);
         }
         
