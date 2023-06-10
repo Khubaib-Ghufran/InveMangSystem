@@ -12,9 +12,10 @@ namespace InveMangSystem.Controllers
     public class UnitController : Controller
     {
         
-        public IActionResult Index()
+        public IActionResult Index(string SearchText="")
         {
-            List<Unit> units = _unitRepo.GetItems();//_context.Units.ToList();
+            ViewBag.SearchText = SearchText;
+            List<Unit> units = _unitRepo.GetItems(SearchText);//_context.Units.ToList();
 
             return View(units);
         }

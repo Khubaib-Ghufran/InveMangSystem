@@ -7,7 +7,7 @@ namespace InveMangSystem.Interfaces
     public interface IUnit
     {
        
-            List<Unit> GetItems();
+            List<Unit> GetItems(string SearchText=" ");
             Unit GetUnit(int id);
             Unit Create(Unit unit);
             Unit Edit(Unit unit);

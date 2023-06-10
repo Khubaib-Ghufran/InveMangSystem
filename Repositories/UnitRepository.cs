@@ -40,9 +40,15 @@ namespace InveMangSystem.Repositories
             return unit;
         }
 
-        public List<Unit> GetItems()
+        public List<Unit> GetItems(string SearchText="")
         {
             List<Unit> units = _context.Units.ToList();
+            if(SearchText !="" && SearchText !=null)
+            {
+                units=_context.Units.Where(n=>n.Name.Contains(SearchText)|| n.Description.Contains(SearchText)).ToList();
+            }
+            else
+                units = _context.Units.ToList();
 
             return units;
 
