@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 
+
+
 namespace InveMangSystem.Models
 {
     public class PagerModel
     {
-        //the belwo are readonly properties using private method.
+
+        //Read only Proeprties , I made Readonly by Making the Set method private.
         public int TotalItems { get; private set; }
         public int CurrentPage { get; private set; }
         public int PageSize { get; private set; }
@@ -16,10 +19,10 @@ namespace InveMangSystem.Models
         public int StartRecord { get; private set; }
         public int EndRecord { get; private set; }
 
-        //public properties
 
         public string Action { get; set; } = "Index";
         public string SearchText { get; set; }
+        public string SortExpression { get; set; }
 
         public PagerModel(int totalItems, int currentPage, int pageSize = 5)
         {
@@ -69,22 +72,24 @@ namespace InveMangSystem.Models
 
         }
 
-        public System.Collections.Generic.List<SelectListItem> GetPageSizes()
-        {
+        //public List<SelectListItem> GetPageSizes()
+        //{
 
-            var pageSizes = new List<SelectListItem>();
+        //    var pageSizes = new List<SelectListItem>();
 
-            for (int lp = 5; lp <= 50; lp += 5)
-            {
-                if (lp == this.PageSize)
-                {
-                    pageSizes.Add(new SelectListItem(lp.ToString(), lp.ToString(), true));
-                }
-                else
-                    pageSizes.Add(new SelectListItem(lp.ToString(), lp.ToString()));
-            }
+        //    for (int lp = 5; lp <= 50; lp += 5)
+        //    {
+        //        if (lp == this.PageSize)
+        //        {
+        //            pageSizes.Add(new SelectListItem(lp.ToString(), lp.ToString(), true));
+        //        }
+        //        else
+        //            pageSizes.Add(new SelectListItem(lp.ToString(), lp.ToString()));
+        //    }
 
-            return pageSizes;
-        }
+        //    return pageSizes;
+        //}
+
     }
 }
+

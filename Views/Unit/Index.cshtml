@@ -1,8 +1,11 @@
-﻿@model IEnumerable<InveMangSystem.Models.Unit>
+﻿@using InveMangSystem.Models
+ 
+@model IEnumerable<InveMangSystem.Models.Unit>
 
 @{
     ViewData["Title"] = "Index";
-    
+    PagerModel pager = ViewBag.Pager;
+
 }
 
 <h1 class="text-center">Units Table</h1>

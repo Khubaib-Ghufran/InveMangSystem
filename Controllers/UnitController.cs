@@ -17,12 +17,12 @@ namespace InveMangSystem.Controllers
             ViewBag.SearchText = SearchText;
             List<Unit> units = _unitRepo.GetItems(SearchText);//_context.Units.ToList();
             var pager = new PagerModel(units.Count, pg, pageSize);
-            this.ViewBag.pager = pager; 
+            this.ViewBag.Pager = pager; 
             return View(units);
         }
         
         private readonly IUnit _unitRepo;
-        public UnitController(IUnit unitrepo)
+        public UnitController(IUnit unitrepo) 
         {
             
             _unitRepo = unitrepo;
